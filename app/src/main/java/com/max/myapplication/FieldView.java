@@ -1,12 +1,13 @@
 package com.max.myapplication;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.max.figure.Figure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
     public FieldView(Context context) {
         super(context);
-        boolean[][] f_array = new boolean[][]{
+        /*boolean[][] f_array = new boolean[][]{
                 {false, false, true},
                 {false, false, true},
                 {false, true,  true},
@@ -38,7 +39,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
         figures.get(0).setX(0);
         figures.get(1).setX(100);
         figures.get(2).setX(200);
-
+        */
 
         getHolder().addCallback(this);
     }
@@ -53,9 +54,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            if(drawThread.getActiveFigure() != null && drawThread.getActiveFigure().matched())
-                figures.remove(drawThread.getActiveFigure());
-            drawThread.setFigure(null, 0, 0);
+
         }
         drawThread.setFigureLocation((int) event.getX(), (int) event.getY());
         return true ;

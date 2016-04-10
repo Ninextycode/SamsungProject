@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.SurfaceHolder;
 
+import com.max.figure.Figure;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +49,7 @@ public class DrawThread extends Thread {
     private int activeXoffset = 0, activeYoffset = 0;
     public void setFigure(Figure f, int firstx, int firsty) {
         if (f == null && activeFigure != null) {
-            if(activeFigure.matched()){
-                activeFigure.moveToTrue();
-            }
+
         }
         this.activeFigure = f;
         if(f != null) {

@@ -1,4 +1,4 @@
-package com.max.myapplication;
+package com.max.figure;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,7 +15,6 @@ public class Figure extends Drawable {
     public static final int A = 40;
     private boolean[][] figure;
     private int x, y;
-    private int truex, truey;
     private int color;
     public int getX() {
         return x;
@@ -31,8 +30,6 @@ public class Figure extends Drawable {
         this.y = y;
     }
     public Figure(boolean[][] figure, int color, int truex, int truey){
-        this.truex = truex;
-        this.truey = truey;
         this.color = color;
         this.figure = figure;
     }
@@ -89,14 +86,5 @@ public class Figure extends Drawable {
             }
         }
         return false;
-    }
-
-    public boolean matched(){
-        return Math.abs(x - truex) < A/3 && Math.abs(y - truey) < A/3;
-    }
-
-    public void moveToTrue() {
-        x = truex;
-        y = truey;
     }
 }
