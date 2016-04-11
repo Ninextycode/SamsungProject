@@ -10,7 +10,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Divider.divide(6, 5, 5);
         setContentView(new FieldView(this));
-        Divider.divide(5,5,5);
+
     }
 }
