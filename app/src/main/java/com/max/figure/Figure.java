@@ -15,7 +15,7 @@ import android.util.Pair;
  */
 public class Figure extends Drawable implements  Cloneable{
     public  static  boolean[][] whereALiesOnB(Figure A, Figure B){
-        B = new Figure(B.basement, Color.argb(0,0,0,0), B.getX()+Figure.A/2, B.getY()+Figure.A/2);
+        B = new Figure(B.basement, Color.argb(0,0,0,0), B.getX()-Figure.A/2, B.getY()-Figure.A/2);
         boolean[][] where = B.getBasement();
         for(int i = 0; i < where.length; i++) {
             for (int j = 0; j < where[i].length; j++) {
@@ -26,12 +26,14 @@ public class Figure extends Drawable implements  Cloneable{
         boolean[][] baseA = A.getBasement();
         for(int i = 0; i < baseA.length; i++){
             for(int j = 0; j < baseA[i].length; j++){
-                Pair<Integer, Integer> point =
-                        B
-                                .whereContains(A.getX() + Figure.A * i,
-                                        A.getY()+Figure.A*j);
-                if(point != null){
-                    where[point.first][point.second] = true;
+                if(baseA[i][j]) {
+                    Pair<Integer, Integer> point =
+                            B
+                                    .whereContains(A.getX() + Figure.A * i,
+                                            A.getY() + Figure.A * j);
+                    if (point != null) {
+                        where[point.first][point.second] = true;
+                    }
                 }
             }
         }
@@ -150,5 +152,23 @@ public class Figure extends Drawable implements  Cloneable{
             }
         }
         return null;
+    }
+
+    public void rotate() {
+        for(int i = 0; i < basement.length; i++){
+            for(int j = 0; j < basement[i].length/2; j++) {
+                boolean temp =  basement[i][j];
+                basement[i][j] = basement[i][ basement[i].length-1-j];
+                basement[i][basement[i].length-1-j] = temp;
+            }
+        }
+        boolean[][] newBasement = new boolean[basement[0].length][basement.length];
+        for(int i = 0; i < basement.length; i++){
+            for(int j = 0; j < basement[i].length; j++) {
+                newBasement[j][i] = basement[i][j];
+            }
+        }
+        basement = newBasement;
+        return;
     }
 }
