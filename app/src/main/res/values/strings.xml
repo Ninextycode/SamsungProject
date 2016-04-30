@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Puz-zle</string>
+    <string name="start">start</string>
+    <string name="title">Puz-zle</string>
+    <string name="pause">pause</string>
+    <string name="restart">restart</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="_continue">Continue</string>
+    <string name="beforChooser">Field size</string>
+    <string-array name="modes">
+        <item>4x3</item>
+        <item>5x4</item>
+        <item>6x5</item>
+        <item>7x6</item>
+    </string-array>
+
 </resources>

@@ -130,7 +130,7 @@ public class DrawThread extends Thread {
 
     public void fillMarker() {
         Figure background = myView.getBackground();
-        boolean[][] newBasement = new boolean[myView.figureW][myView.figureH];
+        boolean[][] newBasement = new boolean[Constants.figureW][Constants.figureH];
         for (int i = 0; i < newBasement.length; i++) {
             for (int j = 0; j < newBasement[i].length; j++) {
                 newBasement[i][j] = false;

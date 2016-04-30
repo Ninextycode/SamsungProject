@@ -2,6 +2,7 @@ package com.max.myapplication;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -22,7 +23,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
     Random rand = new Random();
 
     int xfield = Figure.A, yfield = Figure.A;
-    public static int  figureH = 7, figureW =5, figureN = 5;
+
     private Figure background;
     private Figure marker;
     public  Figure getBackground(){
@@ -38,29 +39,45 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
     }
     public FieldView(Context context) {
         super(context);
-        figures.addAll(Divider.divide(figureW, figureH, figureN));
-        boolean[][] background = new boolean[figureW][figureH];
-        for(int i = 0; i < figureH; i++){
-            for(int j = 0; j < figureW; j++){
+        fill();
+        getHolder().addCallback(this);
+    }
+
+    public FieldView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        fill();
+        getHolder().addCallback(this);
+        // TODO Auto-generated constructor stub
+    }
+
+    public FieldView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        fill();
+        getHolder().addCallback(this);
+        // TODO Auto-generated constructor stub
+    }
+
+
+
+
+    private void fill(){
+        figures.addAll(Divider.divide(Constants.figureW, Constants.figureH, Constants.figureN));
+        boolean[][] background = new boolean[Constants.figureW][Constants.figureH];
+        for(int i = 0; i < Constants.figureH; i++){
+            for(int j = 0; j < Constants.figureW; j++){
                 background[j][i] = true;
             }
         }
 
         this.background =  new Figure(background, Color.WHITE, xfield, yfield);
 
-        background = new boolean[figureW][figureH];
-        for(int i = 0; i < figureH; i++){
-            for(int j = 0; j < figureW; j++){
+        background = new boolean[Constants.figureW][Constants.figureH];
+        for(int i = 0; i < Constants.figureH; i++){
+            for(int j = 0; j < Constants.figureW; j++){
                 background[j][i] = false;
             }
         }
         marker = new Figure(background, Color.GREEN, xfield, yfield);
-
-
-        getHolder().addCallback(this);
-
-
-
     }
 
 
@@ -132,7 +149,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
             set = true;
             for (Figure f : figures) {
                 f.setX(rand.nextInt(this.getWidth() / 3 * 2));
-                f.setY(yfield + figureH * Figure.A + rand.nextInt(this.getHeight() - (yfield + figureH * Figure.A)));
+                f.setY(yfield + Constants.figureH * Figure.A + rand.nextInt(this.getHeight() - (yfield + Constants.figureH * Figure.A)));
             }
         }
         drawThread.addDrawable(this.background);
