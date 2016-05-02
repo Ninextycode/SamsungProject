@@ -11,6 +11,8 @@ import android.view.SurfaceView;
 
 import com.max.figure.Divider;
 import com.max.figure.Figure;
+import com.max.observeSubscribe.Observer;
+import com.max.observeSubscribe.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +21,26 @@ import java.util.Random;
 /**
  * Created by Max on 3/20/2016.
  */
-public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
+public class FieldView extends SurfaceView implements SurfaceHolder.Callback, Subject<String> {
     Random rand = new Random();
 
     int xfield = Figure.A, yfield = Figure.A;
-
+   // Timer t;
     private Figure background;
     private Figure marker;
-    public  Figure getBackground(){
+
+    public Figure getBackground() {
         synchronized (background) {
             return background;
         }
     }
 
-    public  Figure getMarker(){
+    public Figure getMarker() {
         synchronized (marker) {
             return marker;
         }
     }
+
     public FieldView(Context context) {
         super(context);
         fill();
@@ -58,30 +62,29 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-
-
-    private void fill(){
+    private void fill() {
         figures.addAll(Divider.divide(Constants.figureW, Constants.figureH, Constants.figureN));
         boolean[][] background = new boolean[Constants.figureW][Constants.figureH];
-        for(int i = 0; i < Constants.figureH; i++){
-            for(int j = 0; j < Constants.figureW; j++){
+        for (int i = 0; i < Constants.figureH; i++) {
+            for (int j = 0; j < Constants.figureW; j++) {
                 background[j][i] = true;
             }
         }
 
-        this.background =  new Figure(background, Color.WHITE, xfield, yfield);
+        this.background = new Figure(background, Color.WHITE, xfield, yfield);
 
         background = new boolean[Constants.figureW][Constants.figureH];
-        for(int i = 0; i < Constants.figureH; i++){
-            for(int j = 0; j < Constants.figureW; j++){
+        for (int i = 0; i < Constants.figureH; i++) {
+            for (int j = 0; j < Constants.figureW; j++) {
                 background[j][i] = false;
             }
         }
-        marker = new Figure(background, Color.GREEN, xfield, yfield);
+        marker = new Figure(background, DrawThread.bgcolor, xfield, yfield);
     }
 
 
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         Log.d("Event", "onTouchEvent " + event);
 
         switch (event.getActionMasked()) {
@@ -105,7 +108,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
                 Log.d("UP", "ACTION_POINTER_UP " + event.getActionIndex());
                 Figure activeFigure = drawThread.getActiveFigure();
                 if (activeFigure != null) {
-                    if(event.getActionIndex() == 0){
+                    if (event.getActionIndex() == 0) {
                         drawThread.setFigure(null, activeFigure.getX(), activeFigure.getY());
                     } else {
                         drawThread.getActiveFigure().rotate();
@@ -122,30 +125,35 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
-    @Override public boolean onDragEvent(DragEvent  event) {
+    @Override
+    public boolean onDragEvent(DragEvent event) {
         drawThread.setFigureLocation((int) event.getX(), (int) event.getY());
-        return true ;
+        return true;
     }
+
     private DrawThread drawThread;
     private List<Figure> figures = new ArrayList<>();
-    public void  setFigures(List<Figure> f){
-        synchronized (figures){
+
+    public void setFigures(List<Figure> f) {
+        synchronized (figures) {
             figures = f;
         }
     }
 
-    public void  setMarker(Figure m) {
+    public void setMarker(Figure m) {
         marker = m;
     }
 
 
-
     boolean set = false;
+    long milliseconds = 0;
+    Object mutex = new Object();
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+
         drawThread = new DrawThread(getContext(), getHolder(), this);
         drawThread.start();
-        if(!set) {
+        if (!set) {
             set = true;
             for (Figure f : figures) {
                 f.setX(rand.nextInt(this.getWidth() / 3 * 2));
@@ -166,6 +174,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+      //  t.cancel();
         drawThread.requestStop();
         boolean retry = true;
         while (retry) {
@@ -174,6 +183,27 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback {
                 retry = false;
             } catch (InterruptedException e) {
             }
+        }
+    }
+
+    private List<Observer<String>> observers = new ArrayList<>();
+
+    @Override
+    public void register(Observer<String> obj) {
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observers.add(obj);
+        obj.setSubject(this);
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observers.remove(obj);
+        obj.setSubject(null);
+    }
+
+    public void matched() {
+        for(Observer<String> o: observers){
+            o.update("matched");
         }
     }
 }

@@ -13,5 +13,5 @@
         <item>6x5</item>
         <item>7x6</item>
     </string-array>
-
+    <string name="congrad">Congradulations</string>
 </resources>

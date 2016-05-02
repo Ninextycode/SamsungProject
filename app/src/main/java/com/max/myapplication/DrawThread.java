@@ -34,6 +34,7 @@ public class DrawThread extends Thread {
     }
     List<Drawable> toDraw = new ArrayList<>();
     List<Figure> figures = new ArrayList<>();
+    public static final int bgcolor = Color.argb(0xff, 0xaf, 0xaf,0xaf);
     @Override
     public void run() {
         while (running) {
@@ -41,10 +42,8 @@ public class DrawThread extends Thread {
             if (canvas != null) {
                 try {
                     Paint p = new Paint();
-                    p.setColor(Color.BLACK);
+                    p.setColor(bgcolor);
                     canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), p);
-                    p.setColor(Color.RED);
-                    canvas.drawCircle(250, 250, 10, p);
                     synchronized (toDraw) {
                         for (Drawable d : toDraw)
                             d.draw(canvas);
@@ -87,6 +86,7 @@ public class DrawThread extends Thread {
                         myView.setFigures(figures);
                     }
                 }
+                myView.matched();
             }
          //   }
         }
@@ -118,6 +118,7 @@ public class DrawThread extends Thread {
     public  void removeDrawable(Drawable d){
         toDraw.remove(d);
     }
+
     public void setFigureLocation(int x, int y){
         if(activeFigure != null){
             activeFigure.setX(x + activeXoffset);

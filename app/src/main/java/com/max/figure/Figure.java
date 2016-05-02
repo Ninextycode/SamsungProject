@@ -41,7 +41,7 @@ public class Figure extends Drawable implements  Cloneable{
     }
 
 
-    public static final int A = 60;
+    public static int A = 60;
     private boolean[][] basement;
     public  boolean[][] getBasement(){
         boolean [][] myBase = new boolean[basement.length][];
