@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, FieldActivity.class);
                 startActivity(i);
-                finish();
+               // finish();
             }
         });
         //  setContentView(new FieldView(this));

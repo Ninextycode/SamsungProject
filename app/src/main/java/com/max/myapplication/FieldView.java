@@ -156,7 +156,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback, Su
         if (!set) {
             set = true;
             for (Figure f : figures) {
-                f.setX(rand.nextInt(this.getWidth() / 3 * 2));
+                f.setX(rand.nextInt(this.getWidth() / 3 * 2) + Figure.A);
                 f.setY(yfield + Constants.figureH * Figure.A + rand.nextInt(this.getHeight() - (yfield + Constants.figureH * Figure.A)));
             }
         }
@@ -169,7 +169,7 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback, Su
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        drawThread.setFigures(figures);
+        //drawThread.setFigures(figures);
     }
 
     @Override

@@ -49,8 +49,8 @@ public class SucessActivity extends AppCompatActivity {
         toMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SucessActivity.this, MainActivity.class);
-                startActivity(i);
+               // Intent i = new Intent(SucessActivity.this, MainActivity.class);
+               // startActivity(i);
                 finish();
             }
         });

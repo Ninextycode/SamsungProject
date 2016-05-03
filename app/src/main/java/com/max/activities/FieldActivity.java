@@ -1,5 +1,9 @@
 package com.max.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,22 +28,35 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_layout);
-       // RelativeLayout surface = (RelativeLayout)findViewById(R.id.fieldLayout);
+
         FieldView fv = (FieldView)findViewById(R.id.fieldView);
 
         fv.register(this);
+
         final Button pause = (Button)findViewById(R.id.menuButton);
-        pause.setOnClickListener(new View.OnClickListener() {
+        final Bundle savedInstanceStateFinal = savedInstanceState;
+                pause.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //  FieldActivity.this.runOnUiThread(new Runnable() {
-                //      @Override
-                //      public void run() {
-                Intent i = new Intent(FieldActivity.this, PauseActivity.class);
-                startActivityForResult(i, MENU_RESULT_CODE);
-                //        }
-                //   });
+
+
+
+
+
+
+
+
+
+                  FieldActivity.this.runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+                          Dialog dialog = (new MenuDialog()).onCreateDialog(savedInstanceStateFinal);
+                          dialog.show();
+                        }
+                   });
+                //Intent i = new Intent(FieldActivity.this, PauseActivity.class);
+                //startActivityForResult(i, MENU_RESULT_CODE);
             }
         });
         startpause = System.currentTimeMillis();
@@ -54,7 +71,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
                     long milliseconds = end - start - offset;
 
                     FieldActivity.this.setTime(
-                            milliseconds / 60000 + ":"
+                                       milliseconds / 60000 + ":"
                                     + (milliseconds % 60000) / 1000 + ":"
                                     + (milliseconds % 1000) / 100);
 
@@ -132,5 +149,20 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
                 tw.setText(s2);
             }
         });
+    }
+
+    public static class MenuDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.pause)
+                    .setItems(R.array.pauseMenu, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // The 'which' argument contains the index position
+                            // of the selected item
+                        }
+                    });
+            return builder.create();
+        }
     }
 }
