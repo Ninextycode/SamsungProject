@@ -22,6 +22,16 @@
             android:layout_gravity="center"
             android:textSize="40dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/newRecordTextView"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#e46534"
+            android:textStyle="bold" />
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="120dp" />

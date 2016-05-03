@@ -13,5 +13,8 @@
         <item>6x5</item>
         <item>7x6</item>
     </string-array>
-    <string name="congrad">Congradulations</string>
+    <string name="congrad">Congratulations</string>
+    <string name="defaultName">Player</string>
+    <string name="rec">Records</string>
+    <string name="clear">Clear</string>
 </resources>

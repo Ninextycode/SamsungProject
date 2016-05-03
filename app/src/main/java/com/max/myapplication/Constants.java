@@ -4,6 +4,6 @@ package com.max.myapplication;
  * Created by Max on 4/30/2016.
  */
 public class Constants {
-    public static int  figureH = 7, figureW =5, figureN = 5, state = 0;
-
+    public static int  figureH = 7, figureW =5, figureN = 5, mode = 0;
+    public static String name;
 }

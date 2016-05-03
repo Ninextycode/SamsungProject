@@ -21,6 +21,7 @@
 
         <activity android:name="com.max.activities.PauseActivity"/>
         <activity android:name="com.max.activities.SucessActivity"/>
+        <activity android:name="com.max.activities.RecordsActivity"/>
     </application>
 
 </manifest>
