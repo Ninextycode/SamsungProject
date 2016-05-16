@@ -47,13 +47,18 @@ public class DBRecords {
 
 
         mCursor.moveToFirst();
-        long time = Long.MAX_VALUE;
+
+        ArrayList<Long> arr = new ArrayList<>();
+        mCursor.moveToFirst();
         if (!mCursor.isAfterLast()) {
-            time = mCursor.getLong(0);
+            do {
+                long time = mCursor.getLong(0);
 
 
+                arr.add(time);
+            } while (mCursor.moveToNext());
         }
-
+        long time = (arr.size() >=50)?arr.get(0):Long.MAX_VALUE;
         if(milliseconds < time) {
             ContentValues cv = new ContentValues();
             cv.put(COLUMN_NAME, name);

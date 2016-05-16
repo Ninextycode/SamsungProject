@@ -1,12 +1,11 @@
 package com.max.activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +14,8 @@ import com.max.myapplication.FieldView;
 import com.max.myapplication.R;
 import com.max.observeSubscribe.Observer;
 import com.max.observeSubscribe.Subject;
+
+;
 
 /**
  * Created by Max on 4/30/2016.
@@ -29,34 +30,93 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_layout);
 
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.pause)
+                .setItems(R.array.pauseMenu, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i;
+                        switch (which){
+                            case 0:
+                                //Continue
+                                break;
+                            case 1:
+                                //restart
+                                i = new Intent(FieldActivity.this, FieldActivity.class);
+                                startActivity(i);
+                                finish();
+                                break;
+                            case 2:
+                                //main menu
+                                i = new Intent(FieldActivity.this, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                startpause = System.currentTimeMillis();
+                isPause = true;
+            }
+        });
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                offset = offset + System.currentTimeMillis() - startpause;
+                isPause = false;
+            }
+        });
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+
+                if (isPause) {
+                    offset = offset + System.currentTimeMillis() - startpause;
+                    isPause = false;
+                }
+                return true;
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                if (isPause) {
+                    offset = offset + System.currentTimeMillis() - startpause;
+                    isPause = false;
+                }
+            }
+        });
+
+
+
         FieldView fv = (FieldView)findViewById(R.id.fieldView);
 
         fv.register(this);
 
         final Button pause = (Button)findViewById(R.id.menuButton);
         final Bundle savedInstanceStateFinal = savedInstanceState;
-                pause.setOnClickListener(new View.OnClickListener() {
+        pause.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-
-
-
-
-
-
-
-
                   FieldActivity.this.runOnUiThread(new Runnable() {
                       @Override
                       public void run() {
-                          Dialog dialog = (new MenuDialog()).onCreateDialog(savedInstanceStateFinal);
                           dialog.show();
                         }
                    });
-                //Intent i = new Intent(FieldActivity.this, PauseActivity.class);
-                //startActivityForResult(i, MENU_RESULT_CODE);
             }
         });
         startpause = System.currentTimeMillis();
@@ -67,14 +127,15 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
 
                 while (true) {
 
-                    end = System.currentTimeMillis();
-                    long milliseconds = end - start - offset;
+                    if(!isPause) {
+                        end = System.currentTimeMillis();
+                        long milliseconds = end - start - offset;
 
-                    FieldActivity.this.setTime(
-                                       milliseconds / 60000 + ":"
-                                    + (milliseconds % 60000) / 1000 + ":"
-                                    + (milliseconds % 1000) / 100);
-
+                        FieldActivity.this.setTime(
+                                milliseconds / 60000 + ":"
+                                        + (milliseconds % 60000) / 1000 + ":"
+                                        + (milliseconds % 1000) / 100);
+                    }
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -150,19 +211,4 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
             }
         });
     }
-
-    public static class MenuDialog extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.pause)
-                    .setItems(R.array.pauseMenu, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // The 'which' argument contains the index position
-                            // of the selected item
-                        }
-                    });
-            return builder.create();
-        }
-    }
-}
+ }
