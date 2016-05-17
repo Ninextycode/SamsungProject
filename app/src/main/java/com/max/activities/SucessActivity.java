@@ -24,7 +24,7 @@ public class SucessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sucess);
+        setContentView(R.layout.sucess_layout);
         dbRecords = new DBRecords(this);
         TextView time = (TextView) findViewById(R.id.finihsTimeSucess);
         long milliseconds = getIntent().getLongExtra("time", 0);

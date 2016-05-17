@@ -63,19 +63,19 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback, Su
 
 
     private void fill() {
-        figures.addAll(Divider.divide(Constants.figureW, Constants.figureH, Constants.figureN));
-        boolean[][] background = new boolean[Constants.figureW][Constants.figureH];
-        for (int i = 0; i < Constants.figureH; i++) {
-            for (int j = 0; j < Constants.figureW; j++) {
+        figures.addAll(Divider.divide(Constants.figureW[Constants.mode], Constants.figureH[Constants.mode], Constants.figureN[Constants.mode]));
+        boolean[][] background = new boolean[Constants.figureW[Constants.mode]][Constants.figureH[Constants.mode]];
+        for (int i = 0; i < Constants.figureH[Constants.mode]; i++) {
+            for (int j = 0; j < Constants.figureW[Constants.mode]; j++) {
                 background[j][i] = true;
             }
         }
 
         this.background = new Figure(background, Color.WHITE, xfield, yfield);
 
-        background = new boolean[Constants.figureW][Constants.figureH];
-        for (int i = 0; i < Constants.figureH; i++) {
-            for (int j = 0; j < Constants.figureW; j++) {
+        background = new boolean[Constants.figureW[Constants.mode]][Constants.figureH[Constants.mode]];
+        for (int i = 0; i < Constants.figureH[Constants.mode]; i++) {
+            for (int j = 0; j < Constants.figureW[Constants.mode]; j++) {
                 background[j][i] = false;
             }
         }
@@ -153,11 +153,16 @@ public class FieldView extends SurfaceView implements SurfaceHolder.Callback, Su
 
         drawThread = new DrawThread(getContext(), getHolder(), this);
         drawThread.start();
+        int a = this.getHeight();
+        int b = this.getWidth();
+
         if (!set) {
             set = true;
             for (Figure f : figures) {
-                f.setX(rand.nextInt(this.getWidth() / 3 * 2) - Figure.A);
-                f.setY(yfield + Constants.figureH * Figure.A + rand.nextInt(this.getHeight() - (yfield + Constants.figureH * Figure.A)));
+                f.setX(rand.nextInt(this.getWidth() - 2 * + Figure.A) + Figure.A);
+
+                f.setY(yfield + Constants.figureH[Constants.mode] * Figure.A +
+                        rand.nextInt(this.getHeight() - (yfield + Constants.figureH[Constants.mode] * Figure.A)) - Figure.A );
             }
         }
         drawThread.addDrawable(this.background);

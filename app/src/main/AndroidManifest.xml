@@ -9,20 +9,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.max.activities.MainActivity">
+        <activity android:name="com.max.activities.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.max.activities.FieldActivity">
 
-        </activity>
 
-        <activity android:name="com.max.activities.PauseActivity"/>
-        <activity android:name="com.max.activities.SucessActivity"/>
-        <activity android:name="com.max.activities.RecordsActivity"/>
+        <activity android:name="com.max.activities.FieldActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name="com.max.activities.PauseActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.max.activities.SucessActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.max.activities.RecordsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.max.activities.FailActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

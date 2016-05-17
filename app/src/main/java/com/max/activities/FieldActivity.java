@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.max.myapplication.Constants;
 import com.max.myapplication.FieldView;
 import com.max.myapplication.R;
 import com.max.observeSubscribe.Observer;
@@ -25,6 +26,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
     long start, end, startpause , endpause, offset = 0;
     boolean isPause = false;
     Object mutex = new Object();
+    Thread counter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,31 +123,43 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
         });
         startpause = System.currentTimeMillis();
         start = System.currentTimeMillis();
-        new Thread(new Runnable() {
+        counter = new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    while(!Thread.currentThread().isInterrupted()) {
+                        if(!isPause) {
+                            end = System.currentTimeMillis();
+                            long milliseconds = end - start - offset;
+                            long limit =  Constants.timeLimitSeconds[Constants.mode] * 1000;
 
-                while (true) {
+                            if(milliseconds > limit){
+                                Intent i = new Intent(FieldActivity.this, FailActivity.class);
+                                startActivity(i);
+                                finish();
+                                break;
+                            }
 
-                    if(!isPause) {
-                        end = System.currentTimeMillis();
-                        long milliseconds = end - start - offset;
 
-                        FieldActivity.this.setTime(
-                                milliseconds / 60000 + ":"
-                                        + (milliseconds % 60000) / 1000 + ":"
-                                        + (milliseconds % 1000) / 100);
-                    }
-                    try {
+                            FieldActivity.this.setTime(
+                                    milliseconds / 60000 + ":"
+                                            + (milliseconds % 60000) / 1000 + ":"
+                                            + (milliseconds % 1000) / 100 + " / " +
+
+                                            limit/ 60000 + ":"
+                                            + (limit % 60000) / 1000 + ":"
+                                            + (limit % 1000) / 100);
+                        }
+
                         Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
                     }
+                } catch (InterruptedException consumed){
+
                 }
-
-
             }
-        }).start();
+        });
+        counter.start();
     }
 
     private  int MENU_RESULT_CODE = 0;
@@ -176,6 +190,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
         if("matched".equals(s)){
             Intent i = new Intent(this, SucessActivity.class);
             i.putExtra("time",  end - start - offset);
+            counter.interrupt();
             startActivity(i);
             finish();
         }
@@ -206,8 +221,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
             public void run() {
                 TextView tw = (TextView)
                         findViewById(R.id.timer);
-
-                tw.setText(s2);
+                tw.setText(s2 );
             }
         });
     }

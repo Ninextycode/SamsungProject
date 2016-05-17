@@ -88,36 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
-                int height = size.y;
+                Figure.A = width /( Constants.figureW[Constants.mode] + 2);
 
 
-
-                switch (pos) {
-                    case 0:
-                        Constants.figureW = 3;
-                        Constants.figureH = 4;
-                        Constants.figureN = 3;
-                        Figure.A = width / 5;
-                        break;
-                    case 1:
-                        Constants.figureW = 4;
-                        Constants.figureH = 5;
-                        Constants.figureN = 4;
-                        Figure.A = width / 6;
-                        break;
-                    case 2:
-                        Constants.figureW = 5;
-                        Constants.figureH = 6;
-                        Constants.figureN = 5;
-                        Figure.A = width / 7;
-                        break;
-                    case 3:
-                        Constants.figureW = 6;
-                        Constants.figureH = 7;
-                        Constants.figureN = 6;
-                        Figure.A = width / 8;
-                        break;
-                }
                 rewriteBest();
             }
 
