@@ -70,27 +70,6 @@
             android:layout_column="1"
             android:text="record" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="@string/defaultName"
-            android:ems="10"
-            android:id="@+id/nameEditText"
-            android:layout_row="5"
-            android:layout_column="2" />
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="@string/start"
-            android:id="@+id/startButton"
-            android:layout_above="@+id/best2textView"
-            android:layout_alignRight="@+id/textView"
-            android:layout_alignEnd="@+id/textView"
-            android:layout_row="6"
-            android:layout_column="2" />
-
         <TextView
             android:layout_columnSpan="3"
             android:layout_width="wrap_content"
@@ -103,14 +82,6 @@
             android:layout_row="8"
             android:layout_column="1"
             android:text="record" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rec"
-            android:id="@+id/recordsButtom"
-            android:layout_row="7"
-            android:layout_column="2" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,5 +97,48 @@
             android:text="record" />
 
     </GridLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:paddingBottom="30dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/defaultName"
+            android:ems="10"
+            android:id="@+id/nameEditText"
+            android:layout_row="5"
+            android:layout_column="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rec"
+            android:id="@+id/recordsButtom"
+            android:layout_row="7"
+            android:layout_column="2" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:id="@+id/startButton"
+            android:layout_above="@+id/best2textView"
+            android:layout_alignRight="@+id/textView"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_row="6"
+            android:layout_column="2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></LinearLayout>
 
 </RelativeLayout>
