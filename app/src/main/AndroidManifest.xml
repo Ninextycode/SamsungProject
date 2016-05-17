@@ -20,7 +20,6 @@
 
         <activity android:name="com.max.activities.FieldActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name="com.max.activities.PauseActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.max.activities.SucessActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.max.activities.RecordsActivity"  android:screenOrientation="portrait"/>
         <activity android:name="com.max.activities.FailActivity" android:screenOrientation="portrait"/>
