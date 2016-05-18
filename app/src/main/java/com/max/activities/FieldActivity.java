@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -140,7 +141,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
                                 finish();
                                 break;
                             }
-
+                            Log.d("Timing", Thread.currentThread().getId() +"");
 
                             FieldActivity.this.setTime(
                                     milliseconds / 60000 + ":"
@@ -205,7 +206,7 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
     @Override
     public  void onDestroy(){
         super.onDestroy();
-        if(!counter.isAlive())
+        if(counter.isAlive())
             counter.interrupt();
     }
     @Override

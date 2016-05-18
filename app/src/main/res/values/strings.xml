@@ -20,6 +20,7 @@
         <item>Main Menu</item>
     </string-array>
     <string name="congrad">Congratulations</string>
+    <string name="samsung">Samsung it school project</string>
     <string name="defaultName">Player</string>
     <string name="rec">Records</string>
     <string name="clear">Clear</string>
