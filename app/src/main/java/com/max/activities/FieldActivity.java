@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -192,7 +191,6 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
         if("matched".equals(s)){
             Intent i = new Intent(this, SucessActivity.class);
             i.putExtra("time",  end - start - offset);
-            counter.interrupt();
             startActivity(i);
             finish();
         }
@@ -204,6 +202,12 @@ public class FieldActivity extends AppCompatActivity implements Observer<String>
         this.sub = sub;
     }
 
+    @Override
+    public  void onDestroy(){
+        super.onDestroy();
+        if(!counter.isAlive())
+            counter.interrupt();
+    }
     @Override
     public void onPause(){
         super.onPause();

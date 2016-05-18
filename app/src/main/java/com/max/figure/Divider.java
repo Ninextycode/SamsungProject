@@ -98,9 +98,9 @@ public class Divider {
                     }
 
                     figures.add(new Figure(basement, Color.argb(0xffffff,
-                            rand.nextInt() / 2 + Integer.MAX_VALUE / 2,
-                            rand.nextInt() / 2 + Integer.MAX_VALUE / 2,
-                            rand.nextInt() / 2 + Integer.MAX_VALUE / 2)));
+                            rand.nextInt() / 2 + Integer.MAX_VALUE / 3,
+                            rand.nextInt() / 2 + Integer.MAX_VALUE / 3,
+                            rand.nextInt() / 2 + Integer.MAX_VALUE / 3)));
                 }
                 for(int[] r : row){
                     String s = "";

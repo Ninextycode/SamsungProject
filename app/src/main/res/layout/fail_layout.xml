@@ -4,13 +4,13 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="49dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,15 +32,17 @@
             android:textColor="#e46534"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="120dp" />
 
+    </LinearLayout>
 
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout2">
 
         <Button
             android:layout_width="wrap_content"
