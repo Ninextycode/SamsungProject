@@ -51,6 +51,17 @@
             android:layout_column="2"
             android:spinnerMode="dropdown" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout3">
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,24 +87,14 @@
             android:layout_column="2"
             android:layout_gravity="center_horizontal" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout3">
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rec"
             android:id="@+id/recordsButtom"
             android:layout_row="7"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_columnSpan="3"
